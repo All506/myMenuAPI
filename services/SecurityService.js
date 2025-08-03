@@ -21,7 +21,7 @@ const login = async (email, password) => {
 
     const token = jwt.sign({
         email: user.email,
-        rol: user.role.id
+        rol: user.role.name
     }, SECRET_KEY, { expiresIn: '1h' });
 
     return token;
@@ -29,6 +29,7 @@ const login = async (email, password) => {
 }
 
 const tokenVerification = (token) => {
+   
     // Deletes Bearer from token
     const authHeader = token && token.split(' ')[1];
 
@@ -38,7 +39,6 @@ const tokenVerification = (token) => {
 
     try {
         const decoded = jwt.verify(authHeader, SECRET_KEY);
-        decoded.isValid = true;
         return decoded;
     } catch (err) {
         throw new Error('Invalid token');

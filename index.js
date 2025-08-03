@@ -1,12 +1,13 @@
 const express = require('express');
 const { sequelize } = require('./models');
 const securityRoutes = require('./routes/AuthRoutes');
-
+const userRoutes = require('./routes/UserRoutes');
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
 app.use(securityRoutes);
+app.use('/user',userRoutes);
 
 (async () => {
   try {

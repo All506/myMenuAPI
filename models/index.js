@@ -4,6 +4,7 @@ const sequelize = require('../config/Database');
 const User = require('./user')(sequelize, DataTypes);
 const Role = require('./role')(sequelize, DataTypes);
 
+// Asociations for each table
 User.associate = (models) => {
         User.hasOne(models.Role, {
             foreignKey: 'user_id',

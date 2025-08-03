@@ -22,6 +22,7 @@ module.exports = (sequelize) => {
         email: {
             type: DataTypes.TEXT,
             allowNull: false,
+            unique: true,
         }
     }, {
         tableName: 'users',
@@ -32,6 +33,13 @@ module.exports = (sequelize) => {
     }
     
     );
+
+     User.associate = (models) => {
+    User.hasOne(models.Role, {
+      foreignKey: 'user_id',
+      as: 'role'
+    });
+  };
 
   return User;
     
