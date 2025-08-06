@@ -44,10 +44,10 @@ module.exports = (sequelize) => {
     
     );
 
-     /*User.associate = (models) => {
-    User.hasOne(models.Role, {
+    /*User.associate = (models) => {
+    User.hasMany(models.Restaurant, {
+      as: 'restaurants',
       foreignKey: 'user_id',
-      as: 'role'
     });
   };*/
 
