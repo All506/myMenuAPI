@@ -15,5 +15,5 @@ Designed in NodeJs (JWT Tokens & Sequelize as ORM) and Postgres for data persist
 
 ## Author
 
- `This is a personal projec I've been working on almost every night since . As soon as it is finished, it will be part of my portfolio.
- This project was started on July, 29th, 2025 and is still in progress...`
+ `This is a personal projec I've been working on almost every night since July, 29th, 2025. As soon as it is finished, it will be part of my portfolio.
+ No tutorials have been followed as this is a 100% personal project focus to strength my abilities in nodejs. A React Front might be implemented later on.`
