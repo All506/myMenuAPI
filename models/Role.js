@@ -18,6 +18,14 @@ module.exports = (sequelize) => {
         createdAt: 'created_at',
         updatedAt: 'updated_at',
     })
+
+    /*Role.associate = (models) => {
+    Role.belongsTo(models.User, {
+      foreignKey: 'user_id',
+      as: 'user'
+    });
+  };*/
+
     
   return Role; 
 }

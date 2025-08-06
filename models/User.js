@@ -22,6 +22,14 @@ module.exports = (sequelize) => {
         email: {
             type: DataTypes.TEXT,
             allowNull: false,
+            unique: true,
+        },
+        role: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                isIn: [['ADMIN', 'USER']]
+            }
         }
     }, {
         tableName: 'users',
@@ -29,9 +37,19 @@ module.exports = (sequelize) => {
         freezeTableName: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
+        // paranoid will handle soft delete (if entity does not have a deleted_at will be considered active for most calls)
+        deletedAt: 'deleted_at',
+        paranoid: true,
     }
     
     );
+
+    /*User.associate = (models) => {
+    User.hasMany(models.Restaurant, {
+      as: 'restaurants',
+      foreignKey: 'user_id',
+    });
+  };*/
 
   return User;
     
