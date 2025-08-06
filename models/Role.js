@@ -19,12 +19,12 @@ module.exports = (sequelize) => {
         updatedAt: 'updated_at',
     })
 
-    Role.associate = (models) => {
+    /*Role.associate = (models) => {
     Role.belongsTo(models.User, {
       foreignKey: 'user_id',
       as: 'user'
     });
-  };
+  };*/
 
     
   return Role; 

@@ -7,10 +7,6 @@ const login = async (email, password) => {
 
     const user = await User.findOne({
         where: { email },
-        include: [{
-            model: Role,
-            as: 'role'
-        }]
     },);
 
     if (!user) throw new Error('User is not registered');
@@ -21,7 +17,7 @@ const login = async (email, password) => {
 
     const token = jwt.sign({
         email: user.email,
-        rol: user.role.name
+        rol: user.role,
     }, SECRET_KEY, { expiresIn: '1h' });
 
     return token;
@@ -29,7 +25,7 @@ const login = async (email, password) => {
 }
 
 const tokenVerification = (token) => {
-   
+
     // Deletes Bearer from token
     const authHeader = token && token.split(' ')[1];
 
@@ -45,8 +41,24 @@ const tokenVerification = (token) => {
     }
 }
 
+const authenticateToken = (req, res, next) => {
+    const authHeader = req.headers['authorization'];
+    const token = authHeader && authHeader.split(' ')[1];
+    
+    if (!token) return res.status(401).json({ message: 'Token is required' });
+
+    try {
+        const decoded = jwt.verify(token, SECRET_KEY);
+        req.user = decoded;
+        next();
+    } catch (error) {
+        return res.status(403).json({ message: 'Invalid or expired token' });
+    }
+}
+
 // Allows usage in external packages
 module.exports = {
-  login,
-  tokenVerification
+    login,
+    tokenVerification,
+    authenticateToken
 };

@@ -23,6 +23,13 @@ module.exports = (sequelize) => {
             type: DataTypes.TEXT,
             allowNull: false,
             unique: true,
+        },
+        role: {
+            type: DataTypes.TEXT,
+            allowNull: false,
+            validate: {
+                isIn: [['ADMIN', 'USER']]
+            }
         }
     }, {
         tableName: 'users',
@@ -30,16 +37,19 @@ module.exports = (sequelize) => {
         freezeTableName: true,
         createdAt: 'created_at',
         updatedAt: 'updated_at',
+        // paranoid will handle soft delete (if entity does not have a deleted_at will be considered active for most calls)
+        deletedAt: 'deleted_at',
+        paranoid: true,
     }
     
     );
 
-     User.associate = (models) => {
+     /*User.associate = (models) => {
     User.hasOne(models.Role, {
       foreignKey: 'user_id',
       as: 'role'
     });
-  };
+  };*/
 
   return User;
     
