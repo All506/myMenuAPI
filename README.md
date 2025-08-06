@@ -1,3 +1,5 @@
+
+
 ## MyMenu
 MyMenu is a web service that will allow restaurants, cafes and buffets all around the world to show their menu to users throught their mobile phone regardless their operative system, version, language or brand as it is completly responsive for mobile devices.
 Expected functions to implement are:
@@ -10,3 +12,8 @@ This repository will contain a NodeJS API that implements authentication and aut
 
 ## About this Project
 Designed in NodeJs (JWT Tokens & Sequelize as ORM) and Postgres for data persistance.
+
+## Author
+
+ `This is a personal projec I've been working on almost every night since . As soon as it is finished, it will be part of my portfolio.
+ This project was started on July, 29th, 2025 and is still in progress...`
