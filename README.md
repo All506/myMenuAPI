@@ -13,7 +13,7 @@ This repository will contain a NodeJS API that implements authentication and aut
 ## About this Project
 Designed in NodeJs (JWT Tokens & Sequelize as ORM) and Postgres for data persistance.
 
-## Author
+## Author Notes
 
- `This is a personal projec I've been working on almost every night since July, 29th, 2025. As soon as it is finished, it will be part of my portfolio.
+ `This is a personal project I've been working on almost every night since July, 29th, 2025. As soon as it is finished, it will be part of my portfolio.
  No tutorials have been followed as this is a 100% personal project focus to strength my abilities in nodejs. A React Front might be implemented later on.`
