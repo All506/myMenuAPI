@@ -77,8 +77,21 @@ const deleteRestaurantById = async (id) => {
     }
 }
 
+const getRestaurantById = async (id) => {
+    const restaurant = Restaurant.findOne({ where: { id } });
+
+    if (!restaurant) {
+        const error = new Error("Restaurant is not registered.");
+        error.status = 400;
+        throw error;
+    }
+
+    return restaurant;
+}
+
 module.exports = {
     getRestaurantsByUserId,
+    getRestaurantById,
     updateRestaurant,
     deleteRestaurantById,
     createRestaurant

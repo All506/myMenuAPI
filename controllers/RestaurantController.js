@@ -2,7 +2,7 @@ const restaurantService = require('../services/RestaurantService');
 
 exports.createRestaurant = async (req, res) => {
     const restaurant = req.body;
-    
+
     try {
         const createdRestaurant = await restaurantService.createRestaurant(restaurant);
         res.status(200).json({ restaurant : createdRestaurant })
@@ -63,6 +63,29 @@ exports.deleteRestaurantById = async (req, res) => {
         await restaurantService.deleteRestaurantById(restaurantId);
         res.status(200).json({ message: "Restaurant has been deleted"});
     } catch (err) {
+        const status = err.status || 500;
+        const message = err.message || 'Internal server error';
+
+        res.status(status).json({ error: message });
+    }
+}
+
+exports.getRestaurantById = async (req, res) => {
+    const restaurantId = req.params.id;
+    const userId = req.user.id;
+
+    try {
+
+        const userRestaurants = await restaurantService.getRestaurantsByUserId(userId);
+        const ownRestaurant = userRestaurants.some(restaurant => restaurant.id == restaurantId);
+        
+        if (!ownRestaurant) {
+            res.status(404).json({ error: "Unauthorized access" });
+        }
+
+        const restaurant = await restaurantService.getRestaurantById(restaurantId);
+        res.status(200).json({restaurant});
+    } catch(err) {
         const status = err.status || 500;
         const message = err.message || 'Internal server error';
 
