@@ -12,6 +12,27 @@ const getRestaurantsByUserId = async (id) => {
     return restaurants;
 }
 
+const updateRestaurant = async (id,updates) => {
+    const allowedFields = ['name','description','address',
+                            'phone','open_hour','close_hour',
+                            'language_code'];
+    const fieldsToUpdate = {};
+
+    for (const key of allowedFields) {
+        if(updates[key] != undefined) {
+            fieldsToUpdate[key] = updates[key];
+        }
+    }
+
+    const restaurant = await Restaurant.findByPk(id)
+    if (!restaurant) throw new Error("Restaurant is not defined");
+
+    await restaurant.update(fieldsToUpdate, {where: {id : id}});
+
+    return restaurant;
+}
+
 module.exports = {
-    getRestaurantsByUserId
+    getRestaurantsByUserId,
+    updateRestaurant
 };
