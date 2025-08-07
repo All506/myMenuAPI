@@ -1,4 +1,30 @@
 const { Restaurant } = require('../models');
+const { User } = require('../models');
+
+const createRestaurant = async (restaurant) => {
+
+    const userExists = await User.findOne({ where: { id: restaurant.user_id } });
+
+    if (!userExists) {
+        const error = new Error("User id is not registered");
+        error.status = 400;
+        throw error;
+    }
+
+    const newRestaurant = await Restaurant.create({
+        user_id: restaurant.user_id,
+        name: restaurant.name,
+        restaurant_id: restaurant.restaurant_id,
+        description: restaurant.description,
+        address: restaurant.address,
+        phone: restaurant.phone,
+        open_hour: restaurant.open_hour,
+        close_hour: restaurant.close_hour,
+        language_code: restaurant.language_code
+    });
+
+    return newRestaurant;
+}
 
 const getRestaurantsByUserId = async (id) => {
     const restaurants = await Restaurant.findAll({ where: { user_id: id } });
@@ -32,7 +58,28 @@ const updateRestaurant = async (id,updates) => {
     return restaurant;
 }
 
+const deleteRestaurantById = async (id) => {
+    const restaurant = await Restaurant.findOne({ where: { id } });
+
+    try {
+        if (!restaurant) {
+            const error = new Error("Restaurant is not registered.");
+            error.status = 400;
+            throw error;
+        }
+
+        await restaurant.destroy();
+
+        return restaurant;
+    } catch (err) {
+        err.status = 500;
+        throw err;
+    }
+}
+
 module.exports = {
     getRestaurantsByUserId,
-    updateRestaurant
+    updateRestaurant,
+    deleteRestaurantById,
+    createRestaurant
 };
